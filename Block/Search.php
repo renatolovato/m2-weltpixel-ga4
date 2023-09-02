@@ -23,7 +23,6 @@ class Search extends \WeltPixel\GA4\Block\Category
             return [];
         }
 
-        $searchResultListBlock->toHtml();
         $collection = $searchResultListBlock->getLoadedProductCollection();
 
         $blockName = $searchResultListBlock->getToolbarBlockName();

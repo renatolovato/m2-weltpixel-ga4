@@ -179,6 +179,7 @@ If Product Click Tracking is enabled this option rewrites Magento_Catalog::produ
                 <field id="separator_user_dimensions" translate="button_label" type="text" sortOrder="109" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>WeltPixel\GA4\Block\Adminhtml\System\Config\SeparatorElement</frontend_model>
                     <button_label>User Scoped Custom Dimensions</button_label>
+                    <button_url>https://support.weltpixel.com/hc/en-us/articles/12457440427666-Google-Analytics-4-Using-Custom-Dimensions</button_url>
                     <depends>
                         <field id="enable">1</field>
                     </depends>

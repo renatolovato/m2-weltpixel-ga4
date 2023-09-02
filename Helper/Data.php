@@ -877,6 +877,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $displayOption = $this->getParentOrChildIdUsage();
         $productId = $this->getGtmProductId($product);
 
+        if ($buyRequest instanceof \Magento\Framework\DataObject) {
+            $buyRequest = $buyRequest->getData();
+        }
+
         if ( ($displayOption == \WeltPixel\GA4\Model\Config\Source\ParentVsChild::CHILD) && ($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE)) {
             $canditatesRequest = $this->objectFactory->create($buyRequest);
             $cartCandidates = $product->getTypeInstance()->prepareForCartAdvanced($canditatesRequest, $product);
@@ -1121,7 +1125,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $categoryPath = $this->storeCategories[$categoryId]['path'];
         }
 
-        return $this->_buildCategoryPath($categoryPath);
+        return str_replace('{#}', '/', $this->_buildCategoryPath($categoryPath));
     }
 
     /**
@@ -1145,7 +1149,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             }
         }
 
-        return implode('/', $categoriesWithNames);
+        return implode('{#}', $categoriesWithNames);
     }
 
     /**
@@ -1546,7 +1550,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $categoryPath = $category->getData('path');
         $this->_populateStoreCategories();
 
-        return $this->_buildCategoryPath($categoryPath);
+        return str_replace('{#}', '/', $this->_buildCategoryPath($categoryPath));
     }
 
     /**
@@ -1560,7 +1564,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->_populateStoreCategories();
 
         $categoryImploded = $this->_buildCategoryPath($categoryPath);
-        $categories = explode("/", $categoryImploded);
+        $categories = explode("{#}", $categoryImploded);
 
         $index = 1;
         $categNameSuffix = '';
@@ -1600,7 +1604,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         $ga4Categories = [];
         $categoryImploded = $this->_buildCategoryPath($categoryPath);
-        $categories = explode("/", $categoryImploded);
+        $categories = explode("{#}", $categoryImploded);
 
         $index = 1;
         $categNameSuffix = '';

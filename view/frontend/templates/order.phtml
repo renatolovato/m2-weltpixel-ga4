@@ -21,9 +21,7 @@
         $this->setDataLayerOption('event', 'purchase');
         $this->setEcommerceData('transaction_id', $order->getIncrementId());
         $this->setEcommerceData('value', floatval(number_format($this->getOrderTotal(), 2, '.', '')));
-        if ($order->getCouponCode()) :
-            $this->setEcommerceData('coupon', (string)$order->getCouponCode());
-        endif;
+        $this->setEcommerceData('coupon', (string)$order->getCouponCode());
         $this->setEcommerceData('tax', floatval(number_format($order->getTaxAmount(), 2, '.', '')));
         $this->setEcommerceData('shipping', floatval(number_format($order->getShippingAmount(), 2, '.', '')));
         $this->setEcommerceData('currency', $this->getCurrencyCode());
